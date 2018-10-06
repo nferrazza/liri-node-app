@@ -7,8 +7,6 @@ var keys = require("./keys");
 
 var request = require("request");
 
-var moment = require("moment");
-
 var fs = require("fs");
 
 var spotify = new Spotify(keys.spotify);
@@ -52,37 +50,10 @@ var getMeSpotify = function(songName) {
 };
 
 
-var getMyBands = function(artist) {
-    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
-
-    request(queryURL, function(error, response, body){
-        if (!error && response.statusCode === 200) {
-            var jsonData = JSON.parse(body);
-
-            if (!jsonData.length) {
-                console.log("No results found for " + artist);
-                return;
-            }
-
-            console.log("Upcoming concerts for " + artist + ":");
-
-            for (var i=0; i < jsonData.length; i++) {
-                var show = jsonData[i];
-
-
-
-                console.log(
-                    show.venue.city + "," + (show.venue.region || show.venue.country) + " at " + show.venue.name + " " + moment(show.datetime).format("MM/DD/YYYY")
-                );
-            }
-        }
-    });
-};
-
 
 var getMeMovie = function(movieName) {
     if (movieName ===  undefined){
-        movieName = "Mr Nobody";
+        movieName = "Bruno";
     }
 
     var urlHit =
